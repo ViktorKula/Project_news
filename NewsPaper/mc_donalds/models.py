@@ -9,7 +9,7 @@ class Order(models.Model):
     cost = models.FloatField(default=0.0)
     pickup = models.BooleanField(default=False)
     complete = models.BooleanField(default=False)
-    staff = models.ForeignKey("Staff", on_delete=models.CASCADE)
+    staff = models.ForeignKey("Staff", on_delete=models.CASCADE, related_name="orders")
 
     products = models.ManyToManyField("Product", through='ProductOrder')
 
@@ -20,15 +20,22 @@ class Order(models.Model):
 
     def get_duration(self):
         if self.complete:  # если завершён, возвращаем разность объектов
-            return (self.time_out - self.time_in).total_seconds() // 60
+            return (self.time_out - self.time_in).total_seconds()
         else:  # если ещё нет, то сколько длится выполнение
-            return (datetime.now(timezone.utc) - self.time_in).total_seconds() // 60
+            return (datetime.now() - self.time_in).total_seconds()
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.FloatField(default=0.0)
 
 class Staff(models.Model):
+    director = 'DI'
+    admin = 'AD'
+    cook = 'CO'
+    cashier = 'CA'
+    cleaner = 'CL'
+
+
     full_name = models.CharField(max_length=255)
     position = models.CharField(max_length=2, choices = POSITIONS, default = cashier)
     labor_contract = models.IntegerField(default = 0)
