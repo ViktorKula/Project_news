@@ -1,0 +1,83 @@
+python manage.py shell
+from news.models import *
+
+#1. Создать двух пользователей (с помощью метода User.objects.create_user('username')).
+
+User.objects.create(username='Ard', password='123', first_name='Иван', last_name='Иванов', email='boxer@yandex.ru')
+User.objects.create(username='Brown', password='987', first_name='Петр', last_name='Петров', email='fox@gmail.com')
+
+
+#2. Создать два объекта модели Author, связанные с пользователями.
+
+Author.objects.create(user=User.objects.get(username='Ard'))
+Author.objects.create(user=User.objects.get(username='Brown'))
+
+
+#3. Добавить 4 категории в модель Category.
+
+Category.objects.create(category_name='Gossip')
+Category.objects.create(category_name='Policy')
+Category.objects.create(category_name='Technology')
+Category.objects.create(category_name='Bullet')
+
+
+#4. Добавить 2 статьи и 1 новость.
+
+Post.objects.create(post_author=Author(pk=1), post_choice='AR', post_title='Nobody is perfect', post_text='СОЗНАНИЕ И ФИЛОСОФСКИЕ ВОПРОСЫ ИСКУССТВЕННОГО ИНТЕЛЛЕКТА')
+Post.objects.create(post_author=Author(pk=2), post_choice='AR', post_title='So many news to read', post_text='Тим О’Райли и его зоопарк')
+Post.objects.create(post_author=Author(pk=3), post_choice='NE', post_title='Best sales', post_text='Глава «Тинькофф» заявил о «жутком дефиците» IT-кадров')
+
+
+#5. Присвоить им категории (как минимум в одной статье/новости должно быть не меньше 2 категорий).
+
+PostCategory.objects.create(post = Post.objects.get(pk=1), category = Category.objects.get(category_name='Gossip'))
+PostCategory.objects.create(post = Post.objects.get(pk=2), category = Category.objects.get(category_name='Policy'))
+PostCategory.objects.create(post = Post.objects.get(pk=3), category = Category.objects.get(category_name='Technology'))
+PostCategory.objects.create(post = Post.objects.get(pk=3), category = Category.objects.get(category_name='Bullet'))
+
+
+#6. Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий).
+
+from datetime import datetime
+
+Comment.objects.create(comment_post=Post.objects.get(pk=2), comment_user=User.objects.get(username='Ard'), comment_text='Ну такое...', comment_date = datetime.now())
+Comment.objects.create(comment_post=Post.objects.get(pk=3), comment_user=User.objects.get(username='Ard'), comment_text='Отписался.',comment_date = datetime.now())
+Comment.objects.create(comment_post=Post.objects.get(pk=2), comment_user=User.objects.get(username='Brown'), comment_text='Прикольно',comment_date = datetime.now())
+Comment.objects.create(comment_post=Post.objects.get(pk=1), comment_user=User.objects.get(username='Brown'), comment_text='Что это значит?',comment_date = datetime.now())
+
+
+#7. Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов.
+
+Comment.objects.get(pk=1).like()
+Comment.objects.get(pk=2).dislike()
+Comment.objects.get(pk=3).like()
+Comment.objects.get(pk=1).dislike()
+Post.objects.get(pk=2).like()
+Post.objects.get(pk=2).like()
+Post.objects.get(pk=2).like()
+Post.objects.get(pk=2).like()
+Post.objects.get(pk=3).dislike()
+Post.objects.get(pk=3).dislike()
+Post.objects.get(pk=2).like()
+Post.objects.get(pk=1).dislike()
+
+
+#8. Обновить рейтинги пользователей.
+
+Author.objects.get(pk=1).update_rating()
+Author.objects.get(pk=2).update_rating()
+
+
+#9. Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+
+Author.objects.all().order_by('-author_rating').values('user', 'author_rating')[0]
+
+#10/ Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+
+Post.objects.all().order_by('-post_rating').values('post_date', 'post_author', 'post_rating', 'post_title')[0]
+Post.objects.all().order_by('-post_rating')[0]
+
+
+#11. Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+
+Comment.objects.filter(comment_post=Post.objects.all().order_by('-post_rating')[0]).values('comment_date', 'comment_user', 'comment_rating', 'comment_text')
