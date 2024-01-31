@@ -1,0 +1,47 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}!
+<!-- Подключаем новый файл с нашим тегом -->
+
+{% load custom_tags %}
+
+{% block title %}
+Post_news
+{% endblock title %}
+
+{% block content %}
+<h1>Все новости ({{ post_news.count}})</h1>
+{{ post_news }}
+   <!-- Вот так выглядело использование переменной и фильтра -->
+   <h3>{% current_time '%b %d %Y %A' %}</h3>
+
+   <!-- А вот так мы используем наш тег-->
+
+   <h3> {{ next_sale|default_if_none:"Чуть позже сообщим о более свежих новостях!" }}</h3>
+
+   <hr>
+   {% if post_news %}
+    <table>
+        <thead>
+        <tr>
+            <td>Автор</td>
+            <td>Новость/Статья</td>
+            <td>Дата публикации</td>
+            <td>Категория</td>
+            <td>Заголовок</td>
+        </tr>
+        {% for post_detail in post_news %}
+        <tr>
+            <td>{{ post_detail.post_author }}</td>
+            <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
+            <td>{{ post_detail.post_date }}</td>
+            <td>{{ post_detail.post_category }}</td>
+            <td>{{ post_detail.post_title|cenzor }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+{% else %}
+    <h2>новостей нет!</h2>
+{% endif %}
+{% endblock content %}
