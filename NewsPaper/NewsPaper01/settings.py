@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'news',
     'accounts',
     'mc_donalds',
-    'simpleapp'
+    'simpleapp',
+    'django_filters',
 ]
 
 SITE_ID = 1
