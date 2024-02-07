@@ -1,6 +1,8 @@
 from django.urls import path
 # Импортируем созданное нами представление
-from .views import PostList, PostDetail
+from .views import (
+    PostList, PostDetail, PostCreateView, PostUpdateView, PostDeleteView, PostSearch
+)
 
 
 urlpatterns = [
@@ -10,9 +12,13 @@ urlpatterns = [
    # Т.к. наше объявленное представление является классом,
    # а Django ожидает функцию, нам надо представить этот класс в виде view.
    # Для этого вызываем метод as_view.
-   path('', PostList.as_view()),
-   #path('protected/', ProtectedView.as_view(), name='protected_page'),
+   path('', PostList.as_view(), name='post_list'),
+   # path('protected/', ProtectedView.as_view(), name='protected_page'),
    # pk — это первичный ключ товара, который будет выводиться у нас в шаблон
    # int — указывает на то, что принимаются только целочисленные значения
-   path('<int:pk>', PostDetail.as_view()),
+   path('<int:pk>', PostDetail.as_view(), name='post_detail'),
+   path('create/', PostCreateView.as_view(), name='article_add'),
+   path('search/', PostSearch.as_view(), name='post_search'),
+   path('<int:pk>/edit/', PostUpdateView.as_view(), name='post_edit'),
+   path('<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
 ]

@@ -32,7 +32,7 @@ class Author(models.Model):
 
 class Category(models.Model):
 
-    #category_name = models.CharField(max_length=255, unique=True)
+    # category_name = models.CharField(max_length=255, unique=True)
 
     gossip = 'GS'
     policy = 'PO'
@@ -52,18 +52,11 @@ class Category(models.Model):
         return self.get_thematic_display()
 
 
-post = 'PO'
-news = 'NE'
-POST = [
-    (post, 'ПОСТ'),
-    (news, 'НОВОСТЬ')
-]
+
 
 class Post(models.Model):
     post_author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    post_choice = models.CharField(max_length=2,
-                                   choices=TYPE,
-                                   default=news)
+    post_choice = models.CharField(max_length=10, choices=[('article', 'Статья'), ('news', 'Новость')])
     post_date = models.DateTimeField(auto_now_add=True)
     post_category = models.ManyToManyField('Category', through='PostCategory')
     post_title = models.CharField(max_length=30)
@@ -71,7 +64,7 @@ class Post(models.Model):
     post_rating = models.IntegerField(default=0)
 
     def __str__(self):
-        return f'{self.post_title.title()}'
+        return f'{self.post_title.title()}: {self.post_text[:10]}'
 
     def preview(self):
         self.post_text = self.post_text[0:125] + '...'
@@ -86,7 +79,7 @@ class Post(models.Model):
         self.save()
 
     def get_absolute_url(self):
-        return reverse('product_detail', args=[str(self.id)])
+        return reverse('post_detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
@@ -96,6 +89,9 @@ class Post(models.Model):
 class PostCategory(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.post_title.title()
 
 
 
