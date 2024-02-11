@@ -131,6 +131,8 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
+LOGIN_REDIRECT_URL = "/products"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
