@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'news',
     'accounts',
     'mc_donalds',
-    'simpleapp',
+
     'django_filters',
 
     'allauth',
@@ -55,6 +55,25 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'yandex': {
+#
+#         'APP': {
+#             'client_id': '6c523c798a93407a94d775807132bb6b',
+#             'secret': '56d7b60891e44e05be504fa049d6fa8a',
+#             'key': ''
+#         }
+#     }
+# }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,6 +102,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # `allauth` обязательно нужен этот процессор
+                'django.template.context_processors.request',
             ],
         },
     },
