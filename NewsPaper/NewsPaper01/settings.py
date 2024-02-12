@@ -67,8 +67,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 #     'yandex': {
 #
 #         'APP': {
-#             'client_id': '6c523c798a93407a94d775807132bb6b',
-#             'secret': '56d7b60891e44e05be504fa049d6fa8a',
+#             'client_id': '123',
+#             'secret': '123',
 #             'key': ''
 #         }
 #     }
