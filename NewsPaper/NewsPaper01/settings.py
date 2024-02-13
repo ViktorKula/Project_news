@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'fpages',
     'news',
     'accounts',
-    'mc_donalds',
+
 
     'django_filters',
 
@@ -61,6 +61,9 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+LOGIN_REDIRECT_URL = "/news"
 
 
 # SOCIALACCOUNT_PROVIDERS = {
@@ -167,7 +170,7 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = "/products"
+LOGIN_REDIRECT_URL = "/news"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

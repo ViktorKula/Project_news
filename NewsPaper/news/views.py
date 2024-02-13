@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 from .models import Post, PostCategory
 
@@ -39,25 +40,28 @@ class PostDetail(DetailView):
     context_object_name = 'post_detail'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add.post')
     form_class = PostForm
     model = Post
     template_name = 'article_add.html'
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.quantity = 13
+        post.quantity = 10
         return super().form_valid(form)
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.update.post')
     form_class = PostForm
     model = Post
     template_name = 'article_edit.html'
 
 
 # дженерик для удаления поста
-class PostDeleteView(DeleteView):
+class PostDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = ('news.delete.post',)
     model = Post
     template_name = 'article_delete.html'
     success_url = '/news/'

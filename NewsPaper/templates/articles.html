@@ -37,6 +37,13 @@ Post_news
             <td>Дата публикации</td>
             <td>Категория</td>
             <td>Заголовок</td>
+
+            {# Условие получается составным. #}
+            {% if perms.news.update or perms.news.delete %}
+            <td>Действия</td>
+            {% endif %}
+
+
         </tr>
         {% for post_detail in post_news %}
         <tr>
@@ -46,8 +53,19 @@ Post_news
             <td>{{ post_detail.post_category }}</td>
             <td>{{ post_detail.post_title|cenzor }}</td>
         </tr>
-        {% endfor %}
+            <td>
+                {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                {% if perms.news.update.post %}
+                <a href="{% url 'post_edit' pk=post.id %}">Изменить</a>
+                {% endif %}
+                {% if perms.news.delete.post %}
+                <a href="{% url 'post_delete' post.id %}">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
 
+        {% endfor %}
+        </thead>
     </table>
 {% else %}
     <h2>новостей нет!</h2>
