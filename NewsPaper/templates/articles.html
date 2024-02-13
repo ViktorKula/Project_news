@@ -11,65 +11,64 @@ Post_news
 {% block content %}
     <h1>Все новости ({{ post_news.count}})</h1>
     {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
-        <form action="" method="get">
+    <form action="" method="get">
             {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
-            {{ filterset.form.as_p }}
+        {{ filterset.form.as_p }}
             {# Добавим кнопку отправки данных формы #}
-            <input type="submit" value="Найти" />
-        </form>
-
-
-
+        <input type="submit" value="Найти" />
+    </form>
    <!-- Вот так выглядело использование переменной и фильтра -->
     <h3>{% current_time '%b %d %Y %A' %}</h3>
 
-   <!-- А вот так мы используем наш тег-->
-
-    <h3> {{ next_sale|default_if_none:"Чуть позже сообщим о более свежих новостях!" }}</h3>
-
     <hr>
+
+    {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
+    {% if perms.news.add_post %}
+    <a href="{% url 'article_add' %}">Добавить новость</a>
+    {% endif %}
+
+
     {% if post_news %}
-    <table>
-        <thead>
-        <tr>
-            <td>Автор</td>
-            <td>Новость/Статья</td>
-            <td>Дата публикации</td>
-            <td>Категория</td>
-            <td>Заголовок</td>
+        <table>
 
-            {# Условие получается составным. #}
-            {% if perms.news.update or perms.news.delete %}
-            <td>Действия</td>
-            {% endif %}
+            <tr>
+                <td>Автор</td>
+                <td>Новость/Статья</td>
+                <td>Дата публикации</td>
+                <td>Категория</td>
+                <td>Заголовок</td>
 
-
-        </tr>
-        {% for post_detail in post_news %}
-        <tr>
-            <td>{{ post_detail.post_author }}</td>
-            <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
-            <td>{{ post_detail.post_date }}</td>
-            <td>{{ post_detail.post_category }}</td>
-            <td>{{ post_detail.post_title|cenzor }}</td>
-        </tr>
-            <td>
-                {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
-                {% if perms.news.update.post %}
-                <a href="{% url 'post_edit' pk=post.id %}">Изменить</a>
+                {# Условие получается составным. #}
+                {% if perms.news.change_post or perms.news.delete_post %}
+                <td>Действия</td>
                 {% endif %}
-                {% if perms.news.delete.post %}
-                <a href="{% url 'post_delete' post.id %}">Удалить</a>
-                {% endif %}
-            </td>
-        </tr>
 
-        {% endfor %}
-        </thead>
-    </table>
-{% else %}
-    <h2>новостей нет!</h2>
-{% endif %}
+
+            </tr>
+             {% for post_detail in post_news %}
+            <tr>
+                 <td>{{ post_detail.post_author }}</td>
+                 <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
+                 <td>{{ post_detail.post_date }}</td>
+                 <td>{{ post_detail.post_category }}</td>
+                 <td>{{ post_detail.post_title|cenzor }}</td>
+
+                 <td>
+                     {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                     {% if perms.news.change_post %}
+                     <a href="{% url 'post_edit' post_detail.id %}">Изменить</a>
+                     {% endif %}
+                     {% if perms.news.delete_post %}
+                     <a href="{% url 'post_delete' post_detail.id %}">Удалить</a>
+                     {% endif %}
+                 </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    {% else %}
+        <h2>новостей нет!</h2>
+    {% endif %}
 {# Добавляем пагинацию на страницу #}
 
    {# Информация о предыдущих страницах #}
