@@ -45,13 +45,14 @@ INSTALLED_APPS = [
     'news',
     'accounts',
 
-
     'django_filters',
 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+
+    "django_apscheduler",
 ]
 
 SITE_ID = 1
@@ -60,11 +61,33 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
+# Указали форму для дополнительной обработки регистрации пользователя
+ACCOUNT_FORMS = {"signup": "accounts.forms.CustomSignupForm"}
 
 LOGIN_REDIRECT_URL = "/news"
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "info.news.portal"
+EMAIL_HOST_PASSWORD = "cevvefjzlztwgsmc"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = "info.news.portal@yandex.ru"
+
+SERVER_EMAIL = "info.news.portal@yandex.ru"
+
+ADMINS = (
+    ('NP', 'info.news.portal@yandex.ru'),
+)
+
+MANAGERS = (
+    ('Vic', 'vicyru@yandex.ru'),
+)
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'yandex': {
@@ -102,7 +125,6 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
@@ -170,7 +192,7 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = "/news"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

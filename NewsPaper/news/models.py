@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.core.validators import MinValueValidator
 
 arcticle = 'AR'
 news = 'NW'
@@ -128,3 +129,16 @@ class NewsPortalCategory(models.Model):
     news_category = models.ForeignKey(Post, on_delete=models.CASCADE)
     news_portal = models.ForeignKey(Category, on_delete=models.CASCADE)
     # Create your models here.
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+    )
+    category = models.ForeignKey(
+        to='Category',
+        on_delete=models.CASCADE,
+        related_name='subscriptions',
+    )
