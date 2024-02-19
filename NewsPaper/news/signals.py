@@ -18,11 +18,11 @@ def post_created(instance, **kwargs):
 
 
     text_content = (
-        f'Пост: {instance.post_category}\n'
+        f'Новый пост: {instance.post_title}\n'
         f'Ссылка на пост http://127.0.0.1:8000{instance.get_absolute_url()}'
     )
     html_content = (
-        f'Пост: {instance.post_category}<br>'
+        f'Новый пост: {instance.post_title}<br>'
         f'<a href="http://127.0.0.1:8000{instance.get_absolute_url()}">'
         f'Ссылка на пост </a>'
     )

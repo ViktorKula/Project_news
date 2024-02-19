@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 def my_job():
     posts = Post.objects.order_by('post_category')[:3]
-    text = '\n'.join(['{} - {}'.format(p.name, p.post_category) for p in posts])
+    text = '\n'.join(['{} - {}'.format(p.post_choice, p.post_category) for p in posts])
     mail_managers("Самые ...", text)
 
 
@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
         scheduler.add_job(
             my_job,
-            trigger=CronTrigger(day_of_week="mon", minute="31", hour="20"),
+            trigger=CronTrigger(seconds="*/120"),
             id="my_job",  # The `id` assigned to each job MUST be unique
             max_instances=1,
             replace_existing=True,
@@ -44,7 +44,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             delete_old_job_executions,
             trigger=CronTrigger(
-                day_of_week="mon", hour="21", minute="00"
+                day_of_week="mon", hour="22", minute="20"
             ),
             id="delete_old_job_executions",
             max_instances=1,

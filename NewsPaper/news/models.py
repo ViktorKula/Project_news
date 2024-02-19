@@ -5,13 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.validators import MinValueValidator
 
-arcticle = 'AR'
-news = 'NW'
 
-TYPE = [
-    (arcticle, 'Статья'),
-    (news, 'Новость')
-]
 
 
 class Author(models.Model):
@@ -57,7 +51,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     post_author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    post_choice = models.CharField(max_length=10, choices=[('article', 'Статья'), ('news', 'Новость')])
+    post_choice = models.CharField(max_length=10, choices=[('article', 'Статья'), ('news', 'Новость')], default='news')
     post_date = models.DateTimeField(auto_now_add=True)
     post_category = models.ManyToManyField('Category', through='PostCategory')
     post_title = models.CharField(max_length=30)
