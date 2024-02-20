@@ -10,7 +10,7 @@ from django.core.management.base import BaseCommand
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
 
-from ... models import Post, Category
+from .models import Post, Category
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def my_job():
     )
 
     msg = EmailMultiAlternatives(
-        subject='статьи за неделю',
+        subject='Статьи за неделю',
         body='',
         from_email=settings.DEFAULT_FROM_EMAIL,
         to=subscribers,
@@ -58,7 +58,7 @@ class Command(BaseCommand):
         # добавляем работу нашему задачнику
         scheduler.add_job(
             my_job,
-            trigger=CronTrigger(day_of_week='Tue', hour='16', minute='05'),
+            trigger=CronTrigger(day_of_week='fri', hour='18', minute='00'),
             # То же, что и интервал, но задача тригера таким образом более понятна django
             id="my_job",  # уникальный айди
             max_instances=1,
