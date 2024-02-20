@@ -5,7 +5,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.validators import MinValueValidator
 
+arcticle = 'AR'
+news = 'NW'
 
+TYPE = [
+    (arcticle, 'Статья'),
+    (news, 'Новость')
+]
 
 
 class Author(models.Model):
@@ -46,12 +52,18 @@ class Category(models.Model):
     def __str__(self):
         return self.get_thematic_display()
 
-
-
+post = 'PO'
+news = 'NE'
+POST = [
+    (post, 'ПОСТ'),
+    (news, 'НОВОСТЬ')
+]
 
 class Post(models.Model):
     post_author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    post_choice = models.CharField(max_length=10, choices=[('article', 'Статья'), ('news', 'Новость')], default='news')
+    post_choice = models.CharField(max_length=2,
+                                   choices=TYPE,
+                                   default=news)
     post_date = models.DateTimeField(auto_now_add=True)
     post_category = models.ManyToManyField('Category', through='PostCategory')
     post_title = models.CharField(max_length=30)
@@ -86,7 +98,7 @@ class PostCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.post_title.title()
+        return self.post
 
 
 

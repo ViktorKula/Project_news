@@ -1,32 +1,41 @@
-from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
-from django.db.models.signals import m2m_changed, post_save
+from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
+from django.template.loader import render_to_string
+
+from .models import PostCategory
+
+from NewsPaper01 import settings
 
 
-from .models import Post, PostCategory
+def send_notifications(preview, pk, title, subscribers):
+    html_content = render_to_string(
+        'post_add_email.html',
+        {
+            'text': preview,
+            'link': f'{settings.SITE_URL}/news/{pk}'
+        }
+    )
+
+    msg = EmailMultiAlternatives(
+        subject=title,
+        body='',
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        to=subscribers,
+    )
+    print(settings.DEFAULT_FROM_EMAIL)
+    msg.attach_alternative(html_content, 'text/html')
+    msg.send()
 
 
 @receiver(m2m_changed, sender=PostCategory)
-def post_created(instance, **kwargs):
+def notify_about_new_post(sender, instance, **kwargs):
+    if kwargs['action'] == 'post_add':
+        categories = instance.post_category.all()
+        subscribers_emails = []
 
-    emails = User.objects.filter(
-        subscriptions__category__in=instance.post_category.all()
-    ).values_list('email', flat=True)
+        for cat in categories:
+            subscribers = cat.subscribers.all()
+            subscribers_emails += [s.email for s in subscribers]
 
-    subject = f'Новый пост в категории "{instance.post_category}"'
-
-
-    text_content = (
-        f'Новый пост: {instance.post_title}\n'
-        f'Ссылка на пост http://127.0.0.1:8000{instance.get_absolute_url()}'
-    )
-    html_content = (
-        f'Новый пост: {instance.post_title}<br>'
-        f'<a href="http://127.0.0.1:8000{instance.get_absolute_url()}">'
-        f'Ссылка на пост </a>'
-    )
-    for email in emails:
-        msg = EmailMultiAlternatives(subject, text_content, None, [email])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        send_notifications(instance.preview(), instance.pk, instance.post_title, subscribers_emails)

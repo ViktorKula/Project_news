@@ -28,7 +28,7 @@ Post_news
     {% endif %}
 
 
-    {% if post_news %}
+    {% if category_news_list %}
         <table>
 
             <tr>
@@ -45,30 +45,29 @@ Post_news
 
 
             </tr>
-            {% for post_detail in post_news %}
+            {% for post_detail in category_news_list %}
             <tr>
-                 <td>{{ post_detail.post_author }}</td>
-                 <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
-                 <td>{{ post_detail.post_date }}</td>
-                 <td>
-                     {% for category in post.post_category.all %}
+                <td>{{ post_detail.post_author }}</td>
+                <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
+                <td>{{ post_detail.post_date }}</td>
+                <td>
+                    {% for category in post.post_category.all %}
                         <a href="{% url 'category_list' category.id %}">{{ category }}</a>
-                     {% endfor %}
-                 </td>
-                 <td>{{ post_detail.post_title|cenzor}}</td>
+                    {% endfor %}
+                </td>
+                <td>{{ post_detail.post_title|cenzor}}</td>с
 
-                 <td>
-                     {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
-                     {% if perms.news.change_post %}
-                     <a href="{% url 'post_edit' post_detail.id %}">Изменить</a>
-                     {% endif %}
-                     {% if perms.news.delete_post %}
-                     <a href="{% url 'post_delete' post_detail.id %}">Удалить</a>
-                     {% endif %}
-                 </td>
+                <td>
+                    {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                    {% if perms.news.change_post %}
+                    <a href="{% url 'post_edit' post_detail.id %}">Изменить</a>
+                    {% endif %}
+                    {% if perms.news.delete_post %}
+                    <a href="{% url 'post_delete' post_detail.id %}">Удалить</a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
-
         </table>
     {% else %}
         <h2>новостей нет!</h2>
@@ -76,22 +75,22 @@ Post_news
 {# Добавляем пагинацию на страницу #}
 
    {# Информация о предыдущих страницах #}
-   {% if page_obj.has_previous %}
+    {% if page_obj.has_previous %}
        <a href="?{% url_replace page=1 %}">1</a>
        {% if page_obj.previous_page_number != 1 %}
            ...
            <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
        {% endif %}
-   {% endif %}
+    {% endif %}
 
-   {{ page_obj.number }}
+    {{ page_obj.number }}
 
-   {% if page_obj.has_next %}
+    {% if page_obj.has_next %}
        <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
        {% if paginator.num_pages != page_obj.next_page_number %}
            ...
            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
-   {% endif %}
+    {% endif %}
 
 {% endblock content %}

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 
     'fpages',
-    'news',
+    'news.apps.NewsConfig',
     'accounts',
 
     'django_filters',
@@ -88,6 +88,9 @@ ADMINS = (
 MANAGERS = (
     ('Vic', 'vicyru@yandex.ru'),
 )
+
+
+SITE_URL = 'http://127.0.0.1:8000'
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     'yandex': {
