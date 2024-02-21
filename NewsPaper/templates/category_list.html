@@ -1,36 +1,25 @@
 {% extends 'flatpages/default.html' %}
 
 {% load custom_filters %}!
-<!-- Подключаем новый файл с нашим тегом -->
 {% load custom_tags %}
 
 {% block title %}
-Post_news
+Новости
 {% endblock title %}
 
 {% block content %}
-    <h1>Все новости ({{ post_news.count}})</h1>
-    {# Добавляем форму, которая объединяет набор полей, которые будут отправляться в запросе #}
-    <form action="" method="get">
-            {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
-        {{ filterset.form.as_p }}
-            {# Добавим кнопку отправки данных формы #}
-        <input type="submit" value="Найти" />
-    </form>
-   <!-- Вот так выглядело использование переменной и фильтра -->
-    <h3>{% current_time '%b %d %Y %A' %}</h3>
 
-    <hr>
-
-    {# Теперь будем проверять не request.user.is_authenticated, а конкретные права #}
-    {% if perms.news.add_post %}
-    <a href="{% url 'article_add' %}">Добавить новость</a>
+    {% if is_not_author %}
+        <button> <a href="{% url 'upgrade' %}"> Стать автором!</a> </button>
+    {% else %}
+        <h2>Вы уже автор</h2>
     {% endif %}
 
+    <h1>Список новостей</h1>
+    <hr>
 
     {% if category_news_list %}
         <table>
-
             <tr>
                 <td>Автор</td>
                 <td>Новость/Статья</td>
@@ -42,16 +31,15 @@ Post_news
                 {% if perms.news.change_post or perms.news.delete_post %}
                 <td>Действия</td>
                 {% endif %}
-
-
             </tr>
+
             {% for post_detail in category_news_list %}
             <tr>
                 <td>{{ post_detail.post_author }}</td>
                 <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
-                <td>{{ post_detail.post_date }}</td>
+                <td>{{ post_detail.post_date|date:'d M Y' }}</td>
                 <td>
-                    {% for category in post.post_category.all %}
+                    {% for category in post_detail.post_category.all %}
                         <a href="{% url 'category_list' category.id %}">{{ category }}</a>
                     {% endfor %}
                 </td>
@@ -70,11 +58,18 @@ Post_news
             {% endfor %}
         </table>
     {% else %}
-        <h2>новостей нет!</h2>
+        <h2>Новостей нет!</h2>
     {% endif %}
-{# Добавляем пагинацию на страницу #}
 
-   {# Информация о предыдущих страницах #}
+    {% if is_not_subscriber %}
+        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
+    {% else %}
+        <p class="text-center"><a href="{% url 'unsubscribe' category.id %}" class="btn btn-secondary btn-sm">Отписаться</a></p>
+    {% endif %}
+
+    {# Добавляем пагинацию на страницу #}
+
+    {# Информация о предыдущих страницах #}
     {% if page_obj.has_previous %}
        <a href="?{% url_replace page=1 %}">1</a>
        {% if page_obj.previous_page_number != 1 %}

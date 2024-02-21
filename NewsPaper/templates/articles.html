@@ -51,7 +51,7 @@ Post_news
                  <td>{{ post_detail.post_choice|truncatewords:2 }}</td>
                  <td>{{ post_detail.post_date }}</td>
                  <td>
-                     {% for category in post.post_category.all %}
+                     {% for category in post_detail.post_category.all %}
                         <a href="{% url 'category_list' category.id %}">{{ category }}</a>
                      {% endfor %}
                  </td>
