@@ -8,6 +8,7 @@ from django.core.mail import EmailMultiAlternatives
 import time
 
 
+
 @shared_task
 def hello():
     time.sleep(10)
