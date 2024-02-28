@@ -74,8 +74,8 @@ class Post(models.Model):
         return f'{self.post_title.title()}: {self.post_text[:10]}'
 
     def preview(self):
-        self.post_text = self.post_text[0:125] + '...'
-        self.save()
+        preview = self.post_text[0:125] + '...'
+        return preview
 
     def like(self, amount=1):
         self.post_rating += amount

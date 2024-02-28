@@ -22,6 +22,7 @@ urlpatterns = [
    path("accounts/", include("allauth.urls")),  # Оставили только allauth
    path('news/', include('news.urls')),
    path('articles/', include('news.urls')),
+   path('', include('news.urls')),
 
    # Делаем так, чтобы все адреса из нашего приложения (simpleapp/urls.py)
    # подключались к главному приложению с префиксом products/.
