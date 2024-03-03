@@ -11,6 +11,8 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.views.decorators.csrf import csrf_protect
 from .models import Subscription, Category
 
+from django.core.cache import cache
+
 
 
 class PostList(ListView):
