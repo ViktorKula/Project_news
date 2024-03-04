@@ -4,7 +4,7 @@
 {% load custom_tags %}
 
 {% load cache %}
-{% cache 300 article %}
+{% cache 100 article %}
 <!-- Название у нас будет Product -->
 {% block title %}
 Post
@@ -12,10 +12,34 @@ Post
 
 <!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
 {% block content %}
-<h1>{{ post_detail.post_title }}</h1>
-<h1>{{ post_detail.post_text|cenzor }}</h1>
-<h1>{{ post_detail.post_date }}</h1>
-<h1>{{ post_detail.post_category }}</h1>
-<!-- -->
+   <h1>{{ post_detail.post_title|cenzor }}</h1>
+    <hr>
+    {% if post_detail %}
+        <table>
+            <tr>
+                <td>Заголовок</td>
+                <td>Дата публикации</td>
+                <td>Содержание</td>
+                 <td>Действия</td>
+            </tr>
+            <tr>
+                <td>______________</td>
+                <td>______________</td>
+                <td>______________</td>
+                <td>______________</td>
+            </tr>
+            <tr>
+            <td>{{ post_detail.post_title|cenzor}}</td>
+            <td>{{ post_detail.post_date|date:'d M Y'}}</td>
+            <td>{{ post_detail.post_text|cenzor}}</td>
+             <td>
+            <a href="{% url 'post_edit' post_detail.id %}"><u>Редактировать</u></a> <!--ссылка на редактирование поста-->
+            <a href="{% url 'post_delete' post_detail.id %}"><u> Удалить </u></a> <!-- ссылка на удаление поста-->
+            </td>
+        </tr>
+        </table>
+    {% else %}
+        <h2>упс! её нет!</h2>
+    {% endif %}
 {% endblock content %}
 {% endcache %}

@@ -48,6 +48,21 @@ class PostDetail(DetailView):
     template_name = 'article.html'
     context_object_name = 'post_detail'
 
+    def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+        print ('--------------------------------')
+        print (obj)
+        print ('--------------------------------')
+        # кэш очень похож на словарь, и метод get действует так же. Он забирает значение по ключу, если его нет, то забирает None.
+        # если объекта нет в кэше, то получаем его и записываем в кэш
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+        print('++++++++++++++++')
+        print(obj)
+        print('++++++++++++++++')
+        return obj
+
 
 class PostCreateView(PermissionRequiredMixin, CreateView):
     permission_required = ('news.add.post')
