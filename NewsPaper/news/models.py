@@ -35,7 +35,7 @@ class Author(models.Model):
 
 class Category(models.Model):
 
-    # category_name = models.CharField(max_length=255, unique=True)
+    category_name = models.CharField(max_length=255, unique=True)
 
     gossip = 'GS'
     policy = 'PO'
