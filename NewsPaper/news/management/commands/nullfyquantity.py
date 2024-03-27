@@ -15,8 +15,8 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR('Отменено'))
             return
         try:
-            category = Category.objects.get(category_name=options['category'])
+            category = Category.objects.get(thematic=options['category'])
             Post.objects.filter(post_category=category).delete()
-            self.stdout.write(self.style.SUCCESS(f'Succesfully deleted all news from category {category.category_name}')) # в случае неправильного подтверждения говорим, что в доступе отказано
-        except Post.DoesNotExist:
+            self.stdout.write(self.style.SUCCESS(f'Succesfully deleted all news from category {category.thematic}')) # в случае неправильного подтверждения говорим, что в доступе отказано
+        except Category.DoesNotExist:
             self.stdout.write(self.style.ERROR(f'Could not find category {options["category"]}'))

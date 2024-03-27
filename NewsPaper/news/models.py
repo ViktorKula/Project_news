@@ -35,7 +35,7 @@ class Author(models.Model):
 
 class Category(models.Model):
 
-    category_name = models.CharField(max_length=255, unique=True)
+    #category_name = models.CharField(max_length=255, unique=True)
 
     gossip = 'GS'
     policy = 'PO'
@@ -101,7 +101,7 @@ class PostCategory(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.post
+        return f'{self.category}'
 
 
 
