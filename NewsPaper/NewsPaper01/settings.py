@@ -281,7 +281,7 @@ LOGGING = {
         },
         'file_errors': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            'filters': ['require_debug_true'],
             'class': 'logging.FileHandler',
             'filename': 'logs/errors.log',
             'formatter': 'file_and_console_error',
@@ -301,8 +301,13 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console_debug', 'file_general'],
-            'propagate': True,
+            'handlers': [
+                'console_debug',
+                'console_warning',
+                'console_error',
+                'file_general',
+            ],
+            'level': 'DEBUG'
         },
         'django.request': {
             'handlers': ['file_errors', 'mail_admins'],
@@ -315,7 +320,7 @@ LOGGING = {
             'propagate': False,
         },
         'django.template': {
-            'handlers': ['file_errors'],
+            'handlers': ['file_errors', 'mail_admins'],
             'level': 'ERROR',
             'propagate': False,
         },
