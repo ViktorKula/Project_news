@@ -1,3 +1,4 @@
+from django.views import View
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 from .models import Post, PostCategory
@@ -12,6 +13,17 @@ from django.views.decorators.csrf import csrf_protect
 from .models import Subscription, Category
 
 from django.core.cache import cache
+# импортируем функцию для перевода
+from django.utils.translation import gettext as _
+# импортируем функцию для перевода
+
+# Create your views here.
+
+class Index(View):
+    def get(self, request):
+        string = _('Hello world')
+
+        return HttpResponse(string)
 
 
 
@@ -172,3 +184,5 @@ def subscriptions(request):
         'subscriptions.html',
         {'categories': categories_with_subscriptions},
     )
+
+
