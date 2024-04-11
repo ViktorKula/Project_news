@@ -74,7 +74,7 @@ POST = [
 ]
 
 class Post(models.Model):
-    post_author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    post_author = models.ForeignKey('Author', on_delete=models.CASCADE,)
     post_choice = models.CharField(max_length=2,
                                    choices=TYPE,
                                    default=news)

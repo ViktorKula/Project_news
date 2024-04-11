@@ -39,12 +39,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',# обязательно впишите его перед админом
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django.contrib.sites',
     'django.contrib.flatpages',
 
@@ -178,6 +181,10 @@ AUTHENTICATION_BACKENDS = [
 
 WSGI_APPLICATION = 'NewsPaper01.wsgi.application'
 
+LANGUAGES = [
+    ('en-us', 'English'),
+    ('ru', 'Русский'),
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

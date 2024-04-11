@@ -1,6 +1,17 @@
 from django.contrib import admin
 from .models import *
+from modeltranslation.admin import TranslationAdmin
+# импортируем модель амдинки (вспоминаем модуль про переопределение стандартных админ-инструментов)
 
+# Register your models here.
+
+# Регистрируем модели для перевода в админке
+class CategoryAdmin(TranslationAdmin):
+    model = Category
+
+
+class MyModelAdmin(TranslationAdmin):
+    model = MyModel
 
 def delete_all_chosen(modeladmin, request, queryset):
     queryset.delete()
@@ -21,4 +32,5 @@ admin.site.register(PostCategory)
 admin.site.register(Author)
 admin.site.register(Comment)
 admin.site.register(Category)
+admin.site.register(MyModel)
 admin.site.register(Post, NewsPortalAdmin)

@@ -1,7 +1,7 @@
 from django.views import View
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
-from .models import Post, PostCategory
+from .models import *
 
 from .forms import PostForm
 from .filters import PostFilter
@@ -10,20 +10,26 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Exists, OuterRef
 from django.shortcuts import redirect, get_object_or_404, render
 from django.views.decorators.csrf import csrf_protect
-from .models import Subscription, Category
+
 
 from django.core.cache import cache
 # импортируем функцию для перевода
 from django.utils.translation import gettext as _
+# from django.utils.translation import activate, get_supported_language_variant, LANGUAGE_SESSION_KEY
 # импортируем функцию для перевода
 
 # Create your views here.
 
 class Index(View):
     def get(self, request):
-        string = _('Hello world')
+        # . Translators: This message appears on the home page only
+        models = MyModel.objects.all()
 
-        return HttpResponse(string)
+        context = {
+            'models': models,
+        }
+
+        return HttpResponse(render(request, 'index.html', context))
 
 
 

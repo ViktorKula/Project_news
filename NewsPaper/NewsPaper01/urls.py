@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-   path('admin/', admin.site.urls),
-   path("accounts/", include("allauth.urls")),  # Оставили только allauth
-   path('news/', include('news.urls')),
-   path('articles/', include('news.urls')),
-   path('', include('news.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),  # подключаем встроенные эндопинты для работы с локализацией
+    path('admin/', admin.site.urls),
+    path("accounts/", include("allauth.urls")),  # Оставили только allauth
+    path('news/', include('news.urls')),
+    path('articles/', include('news.urls')),
+    path('', include('news.urls')),
 
-   # Делаем так, чтобы все адреса из нашего приложения (simpleapp/urls.py)
-   # подключались к главному приложению с префиксом products/.
+    # Делаем так, чтобы все адреса из нашего приложения (simpleapp/urls.py)
+    # подключались к главному приложению с префиксом products/.
 
 ]
