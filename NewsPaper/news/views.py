@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView

@@ -36,3 +36,76 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^
 NameError: name 'HttpResponse' is not defined
 [13/Apr/2024 22:24:36] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\servers\basehttp.py" - ""GET /i18n/ HTTP/1.1" 500 80296" :: None
+[13/Apr/2024 22:46:37] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\utils\log.py" - "Internal Server Error: /in" :: (<class 'NameError'>, NameError("name 'HttpResponse' is not defined"), <traceback object at 0x0000020FD0F29D40>)
+Traceback (most recent call last):
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\NewsPaper\news\views.py", line 32, in get
+    return HttpResponse(render(request, 'default.html', context))
+           ^^^^^^^^^^^^
+NameError: name 'HttpResponse' is not defined
+[13/Apr/2024 22:46:37] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\servers\basehttp.py" - ""GET /in HTTP/1.1" 500 80260" :: None
+[13/Apr/2024 22:50:26] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\utils\log.py" - "Internal Server Error: /in" :: (<class 'django.template.exceptions.TemplateDoesNotExist'>, TemplateDoesNotExist('default.html'), <traceback object at 0x000001C9E144A440>)
+Traceback (most recent call last):
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\NewsPaper\news\views.py", line 33, in get
+    return HttpResponse(render(request, 'default.html', context))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: default.html
+[13/Apr/2024 22:50:26] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\servers\basehttp.py" - ""GET /in HTTP/1.1" 500 96388" :: None
+[13/Apr/2024 22:53:58] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\utils\log.py" - "Internal Server Error: /in" :: (<class 'django.template.exceptions.TemplateDoesNotExist'>, TemplateDoesNotExist('default.html'), <traceback object at 0x0000023D93F948C0>)
+Traceback (most recent call last):
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\NewsPaper\news\views.py", line 33, in get
+    return HttpResponse(render(request, 'default.html', context))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: default.html
+[13/Apr/2024 22:53:58] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\servers\basehttp.py" - ""GET /in HTTP/1.1" 500 96388" :: None
