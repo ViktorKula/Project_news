@@ -29,7 +29,7 @@ class Index(View):
             'models': models,
         }
 
-        return HttpResponse(render(request, 'index.html', context))
+        return HttpResponse(render(request, 'default.html', context))
 
 
 

@@ -1,0 +1,38 @@
+[13/Apr/2024 22:23:41] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\utils\log.py" - "Internal Server Error: /i18n/" :: (<class 'NameError'>, NameError("name 'HttpResponse' is not defined"), <traceback object at 0x0000017CA3B1F280>)
+Traceback (most recent call last):
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\NewsPaper\news\views.py", line 32, in get
+    return HttpResponse(render(request, 'index.html', context))
+           ^^^^^^^^^^^^
+NameError: name 'HttpResponse' is not defined
+[13/Apr/2024 22:23:41] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\servers\basehttp.py" - ""GET /i18n/ HTTP/1.1" 500 80292" :: None
+[13/Apr/2024 22:24:36] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\utils\log.py" - "Internal Server Error: /i18n/" :: (<class 'NameError'>, NameError("name 'HttpResponse' is not defined"), <traceback object at 0x0000024CA39E3D80>)
+Traceback (most recent call last):
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\PycharmProjects\Project_news\NewsPaper\news\views.py", line 32, in get
+    return HttpResponse(render(request, 'default.html', context))
+           ^^^^^^^^^^^^
+NameError: name 'HttpResponse' is not defined
+[13/Apr/2024 22:24:36] ERROR - pathname: "C:\Users\Admin\PycharmProjects\Project_news\venv\Lib\site-packages\django\core\servers\basehttp.py" - ""GET /i18n/ HTTP/1.1" 500 80296" :: None
