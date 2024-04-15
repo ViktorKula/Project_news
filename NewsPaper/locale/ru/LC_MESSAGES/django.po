@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 20:40+0300\n"
+"POT-Creation-Date: 2024-04-15 19:34+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,9 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
 #: .\fpages\admin.py:11
 msgid "Advanced options"
 msgstr "Расширенные настройки"
@@ -32,25 +33,30 @@ msgctxt "help text for MyModel model"
 msgid "This is the help text"
 msgstr "Это вспомогательный текст"
 
-#: .\news\views.py:25
-msgid "Hello world"
-msgstr "Привет мир"
-
 #: .\templates\account\email\email_confirmation_message.txt:5
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Вы получили это сообщение, потому что пользователь %(user_display)s "
+#| "указал этот email при регистрации на сайте %(site_domain)s.\n"
+#| "\n"
+#| "Для подтверждения регистрации пройдите по ссылке %(activate_url)\n"
+#| "Хорошего дня!"
 msgid ""
 "Вы получили это сообщение, потому что пользователь %(user_display)s указал "
 "этот email при регистрации на сайте %(site_domain)s.\n"
 "\n"
-"Для подтверждения регистрации пройдите по ссылке %(activate_url)"
+"Для подтверждения регистрации пройдите по ссылке %(activate_url)s\n"
 "\n"
-"Хорошего дня!"
+"Хорошего дня!\n"
 msgstr "Бла бла бла"
 
-#: .\templates\flatpages\default.html:9
+#: .\templates\article.html:21 .\templates\articles.html:23
+#: .\templates\flatpages\default.html:10
 msgid "Portal News"
 msgstr "Новостной портал"
 
-#: .\templates\flatpages\default.html:18
-msgid "Check out my new cool translation"
-msgstr "Оцени мой классный перевод"
+#~ msgid "Hello world"
+#~ msgstr "Привет мир"
+
+#~ msgid "Check out my new cool translation"
+#~ msgstr "Оцени мой классный перевод"

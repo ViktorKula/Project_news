@@ -10,3 +10,7 @@ class CategoryTranslationOptions(TranslationOptions):
 @register(MyModel)
 class MyModelTranslationOptions(TranslationOptions):
     fields = ('name', )
+
+@register(Post)
+class PostTranslationOptions(TranslationOptions):
+    fields = ('post_title', )

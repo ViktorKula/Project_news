@@ -13,6 +13,11 @@ class CategoryAdmin(TranslationAdmin):
 class MyModelAdmin(TranslationAdmin):
     model = MyModel
 
+class PostAdmin(TranslationAdmin):
+    model = Post
+
+
+
 def delete_all_chosen(modeladmin, request, queryset):
     queryset.delete()
 delete_all_chosen.short_description = 'Удалить все выбранные позиции'
@@ -34,3 +39,4 @@ admin.site.register(Comment)
 admin.site.register(Category)
 admin.site.register(MyModel)
 admin.site.register(Post, NewsPortalAdmin)
+

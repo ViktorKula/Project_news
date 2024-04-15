@@ -30,7 +30,7 @@ class Index(View):
             'models': models,
         }
 
-        return HttpResponse(render(request, 'default.html', context))
+        return HttpResponse(render(request, 'flatpages/default.html', context))
 
 
 
@@ -60,6 +60,16 @@ class PostList(ListView):
         queryset = super().get_queryset()
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
+
+    def get(self, request):
+        # . Translators: This message appears on the home page only
+        models = Post.objects.all()
+
+        context = {
+            'models': models,
+        }
+
+        return HttpResponse(render(request, 'articles.html', context))
 
 
 class PostDetail(DetailView):
