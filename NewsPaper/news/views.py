@@ -61,15 +61,15 @@ class PostList(ListView):
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
 
-    def get(self, request):
-        # . Translators: This message appears on the home page only
-        models = Post.objects.all()
-
-        context = {
-            'models': models,
-        }
-
-        return HttpResponse(render(request, 'articles.html', context))
+    # def get(self, request):
+    #     # . Translators: This message appears on the home page only
+    #     models = Post.objects.all()
+    #
+    #     context = {
+    #         'models': models,
+    #     }
+    #
+    #     return HttpResponse(render(request, 'articles.html', context))
 
 
 class PostDetail(DetailView):
