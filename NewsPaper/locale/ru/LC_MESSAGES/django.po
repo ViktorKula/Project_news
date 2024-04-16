@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 19:34+0300\n"
+"POT-Creation-Date: 2024-04-16 20:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,14 +24,38 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Расширенные настройки"
 
-#: .\news\models.py:54
+#: .\news\models.py:48
+msgid "gossip"
+msgstr "Светские"
+
+#: .\news\models.py:48
+msgid "politics"
+msgstr "Политика"
+
+#: .\news\models.py:48
+msgid "technology"
+msgstr "Технология"
+
+#: .\news\models.py:48
+msgid "bullet"
+msgstr "Срочные"
+
+#: .\news\models.py:49
 msgid "category name"
 msgstr "Имя категории"
 
-#: .\news\models.py:66
+#: .\news\models.py:62
 msgctxt "help text for MyModel model"
 msgid "This is the help text"
 msgstr "Это вспомогательный текст"
+
+#: .\news\models.py:77
+msgid "arcticle"
+msgstr "Статья"
+
+#: .\news\models.py:77
+msgid "news"
+msgstr "Новость"
 
 #: .\templates\account\email\email_confirmation_message.txt:5
 #, fuzzy, python-format

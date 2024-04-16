@@ -13,4 +13,4 @@ class MyModelTranslationOptions(TranslationOptions):
 
 @register(Post)
 class PostTranslationOptions(TranslationOptions):
-    fields = ('post_title', 'post_text', 'post_category', )
+    fields = ('post_title', 'post_text', 'post_category', 'post_choice' )

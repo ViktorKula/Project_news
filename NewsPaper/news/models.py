@@ -8,15 +8,15 @@ from django.core.validators import MinValueValidator
 from django.core.cache import cache
 
 from django.utils.translation import gettext as _
-from django.utils.translation import pgettext_lazy # импортируем «ленивый» геттекст с подсказкой
+from django.utils.translation import pgettext_lazy  # импортируем «ленивый» геттекст с подсказкой
 
-arcticle = 'AR'
-news = 'NW'
-
-TYPE = [
-    (arcticle, 'Статья'),
-    (news, 'Новость')
-]
+# arcticle = 'AR'
+# news = 'NW'
+#
+# TYPE = [
+#     (arcticle, 'Статья'),
+#     (news, 'Новость')
+# ]
 
 
 class Author(models.Model):
@@ -33,29 +33,25 @@ class Author(models.Model):
 
     def username(self):
         return self.user.username
+
     def __str__(self):
         return self.user.username
 
-class Category(models.Model):
 
-    #category_name = models.CharField(max_length=255, unique=True)
+class Category(models.Model):
+    # category_name = models.CharField(max_length=255, unique=True)
 
     gossip = 'GS'
-    policy = 'PO'
+    politics = 'PO'
     technology = 'TH'
     bullet = 'BL'
-
-    TEMATIC = [
-        (gossip, 'СВЕТСКИЕ НОВОСТИ'),
-        (policy, 'ПОЛИТИКА'),
-        (technology, 'ТЕХНИКА'),
-        (bullet, 'СРОЧНЫЕ НОВОСТИ')
-    ]
+    TEMATIC = [(gossip, _('gossip')),(politics, _('politics')),(technology, _('technology')),(bullet, _('bullet'))]
     thematic = models.CharField(max_length=2, choices=TEMATIC, unique=True, help_text=_('category name'))
     subscribers = models.ManyToManyField(User, blank=True, related_name='categories')
 
     def __str__(self):
         return self.get_thematic_display()
+
 
 class MyModel(models.Model):
     name = models.CharField(max_length=100)
@@ -66,15 +62,20 @@ class MyModel(models.Model):
         verbose_name=pgettext_lazy('help text for MyModel model', 'This is the help text'),
     )
 
-post = 'PO'
-news = 'NE'
-POST = [
-    (post, 'ПОСТ'),
-    (news, 'НОВОСТЬ')
-]
+
+# post = 'PO'
+# news = 'NE'
+# POST = [
+#     (post, 'ПОСТ'),
+#     (news, 'НОВОСТЬ')
+# ]
+
 
 class Post(models.Model):
-    post_author = models.ForeignKey('Author', on_delete=models.CASCADE,)
+    arcticle = 'AR'
+    news = 'NW'
+    TYPE = [(arcticle, _('arcticle')), (news, _('news'))]
+    post_author = models.ForeignKey(Author, on_delete=models.CASCADE, )
     post_choice = models.CharField(max_length=2,
                                    choices=TYPE,
                                    default=news)
@@ -107,14 +108,12 @@ class Post(models.Model):
         cache.delete(f'post-{self.pk}')
 
 
-
 class PostCategory(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.category}'
-
 
 
 class Comment(models.Model):
@@ -146,6 +145,8 @@ class BaseRegisterForm(UserCreationForm):
                   "email",
                   "password1",
                   "password2",)
+
+
 class NewsPortalCategory(models.Model):
     news_category = models.ForeignKey(Post, on_delete=models.CASCADE)
     news_portal = models.ForeignKey(Category, on_delete=models.CASCADE)
