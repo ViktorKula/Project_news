@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_protect
 
 from django.core.cache import cache
 # импортируем функцию для перевода
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 # from django.utils.translation import activate, get_supported_language_variant, LANGUAGE_SESSION_KEY
 # импортируем функцию для перевода
 
@@ -61,15 +61,15 @@ class PostList(ListView):
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
 
-    # def get(self, request):
-    #     # . Translators: This message appears on the home page only
-    #     models = Post.objects.all()
-    #
-    #     context = {
-    #         'models': models,
-    #     }
-    #
-    #     return HttpResponse(render(request, 'articles.html', context))
+    def get(self, request):
+        # . Translators: This message appears on the home page only
+        models = Post.objects.all()
+
+        context = {
+            'models': models,
+        }
+
+        return HttpResponse(render(request, 'articles.html', context))
 
 
 class PostDetail(DetailView):

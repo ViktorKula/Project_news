@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-16 20:33+0300\n"
+"POT-Creation-Date: 2024-04-17 16:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,19 +25,25 @@ msgid "Advanced options"
 msgstr "Расширенные настройки"
 
 #: .\news\models.py:48
-msgid "gossip"
+#, fuzzy
+#| msgid "gossip"
+msgid "Gossip"
 msgstr "Светские"
 
 #: .\news\models.py:48
-msgid "politics"
+#, fuzzy
+#| msgid "politics"
+msgid "Politics"
 msgstr "Политика"
 
 #: .\news\models.py:48
-msgid "technology"
+#, fuzzy
+#| msgid "technology"
+msgid "Technology"
 msgstr "Технология"
 
 #: .\news\models.py:48
-msgid "bullet"
+msgid "Breaking"
 msgstr "Срочные"
 
 #: .\news\models.py:49
@@ -50,12 +56,14 @@ msgid "This is the help text"
 msgstr "Это вспомогательный текст"
 
 #: .\news\models.py:77
-msgid "arcticle"
+#, fuzzy
+#| msgid "arcticle"
+msgid "Arcticle"
 msgstr "Статья"
 
 #: .\news\models.py:77
-msgid "news"
-msgstr "Новость"
+msgid "News"
+msgstr ""
 
 #: .\templates\account\email\email_confirmation_message.txt:5
 #, fuzzy, python-format
@@ -75,9 +83,17 @@ msgid ""
 msgstr "Бла бла бла"
 
 #: .\templates\article.html:21 .\templates\articles.html:23
-#: .\templates\flatpages\default.html:10
+#: .\templates\category_list.html:18 .\templates\flatpages\default.html:10
 msgid "Portal News"
 msgstr "Новостной портал"
+
+#, fuzzy
+#~| msgid "bullet"
+#~ msgid "Bullet"
+#~ msgstr "Срочные"
+
+#~ msgid "news"
+#~ msgstr "Новость"
 
 #~ msgid "Hello world"
 #~ msgstr "Привет мир"

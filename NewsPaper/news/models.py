@@ -7,7 +7,7 @@ from django.core.validators import MinValueValidator
 
 from django.core.cache import cache
 
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy  # импортируем «ленивый» геттекст с подсказкой
 
 # arcticle = 'AR'
@@ -45,7 +45,7 @@ class Category(models.Model):
     politics = 'PO'
     technology = 'TH'
     bullet = 'BL'
-    TEMATIC = [(gossip, _('gossip')),(politics, _('politics')),(technology, _('technology')),(bullet, _('bullet'))]
+    TEMATIC = [(gossip, _('Gossip')),(politics, _('Politics')),(technology, _('Technology')),(bullet, _('Breaking'))]
     thematic = models.CharField(max_length=2, choices=TEMATIC, unique=True, help_text=_('category name'))
     subscribers = models.ManyToManyField(User, blank=True, related_name='categories')
 
@@ -74,7 +74,7 @@ class MyModel(models.Model):
 class Post(models.Model):
     arcticle = 'AR'
     news = 'NW'
-    TYPE = [(arcticle, _('arcticle')), (news, _('news'))]
+    TYPE = [(arcticle, _('Arcticle')), (news, _('News'))]
     post_author = models.ForeignKey(Author, on_delete=models.CASCADE, )
     post_choice = models.CharField(max_length=2,
                                    choices=TYPE,
