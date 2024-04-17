@@ -95,13 +95,16 @@ Post_news
                  <td>{{ post_detail.post_date }}</td>
                  <td>
                      {% for category in post_detail.post_category.all %}
-                        <a href="{% url 'category_list' category.id %}">{{ category }}</a>
+                         <a href="{% url 'category_list' category.id %}">{{ category }}</a>
                      {% endfor %}
                  </td>
                  <td>{{ post_detail.post_title|cenzor}}</td>
 
                  <td>
                      {# А здесь доступ для каждой ссылки теперь будем проверять отдельно #}
+                     {% if perms.post_detail %}
+                     <a href="{% url 'post_detail' post_detail.id %}">Открыть</a>
+                     {% endif %}
                      {% if perms.news.change_post %}
                      <a href="{% url 'post_edit' post_detail.id %}">Изменить</a>
                      {% endif %}

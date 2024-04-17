@@ -7,10 +7,6 @@ class CategoryTranslationOptions(TranslationOptions):
     fields = ('thematic',)  # указываем, какие именно поля надо переводить в виде кортежа
 
 
-@register(MyModel)
-class MyModelTranslationOptions(TranslationOptions):
-    fields = ('name', )
-
 @register(Post)
 class PostTranslationOptions(TranslationOptions):
     fields = ('post_title', 'post_text', 'post_category', 'post_choice' )

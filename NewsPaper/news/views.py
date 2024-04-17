@@ -9,29 +9,10 @@ from .filters import PostFilter
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Exists, OuterRef
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_protect
 
-
 from django.core.cache import cache
-# импортируем функцию для перевода
-from django.utils.translation import gettext_lazy as _
-# from django.utils.translation import activate, get_supported_language_variant, LANGUAGE_SESSION_KEY
-# импортируем функцию для перевода
-
-# Create your views here.
-
-class Index(View):
-    def get(self, request):
-        # . Translators: This message appears on the home page only
-        models = MyModel.objects.all()
-
-        context = {
-            'models': models,
-        }
-
-        return HttpResponse(render(request, 'flatpages/default.html', context))
-
 
 
 class PostList(ListView):
@@ -45,31 +26,12 @@ class PostList(ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = PostFilter(self.request.GET, queryset=self.get_queryset())  # вписываем фильтр в контекст
         context['categories'] = PostCategory.objects.all()
-        context['form'] = PostForm()
         return context
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)  # создаём новую форму, забиваем в неё данные из POST-запроса
-
-        if form.is_valid():  # если пользователь ввёл всё правильно и нигде не ошибся, то сохраняем новый пост
-            form.save()
-
-        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
-
-    def get(self, request):
-        # . Translators: This message appears on the home page only
-        models = Post.objects.all()
-
-        context = {
-            'models': models,
-        }
-
-        return HttpResponse(render(request, 'articles.html', context))
 
 
 class PostDetail(DetailView):
@@ -79,22 +41,20 @@ class PostDetail(DetailView):
 
     def get_object(self, *args, **kwargs):  # переопределяем метод получения объекта
         obj = cache.get(f'post-{self.kwargs["pk"]}', None)
-        print ('--------------------------------')
-        print (obj)
-        print ('--------------------------------')
+        print(obj)
+        print('--------------------------------')
         # кэш очень похож на словарь, и метод get действует так же. Он забирает значение по ключу, если его нет, то забирает None.
         # если объекта нет в кэше, то получаем его и записываем в кэш
         if not obj:
             obj = super().get_object(queryset=self.queryset)
             cache.set(f'post-{self.kwargs["pk"]}', obj)
-        print('++++++++++++++++')
         print(obj)
         print('++++++++++++++++')
         return obj
 
 
 class PostCreateView(PermissionRequiredMixin, CreateView):
-    permission_required = ('news.add.post')
+    permission_required = 'news.add.post'
     form_class = PostForm
     model = Post
     template_name = 'article_add.html'
@@ -106,7 +66,7 @@ class PostCreateView(PermissionRequiredMixin, CreateView):
 
 
 class PostUpdateView(PermissionRequiredMixin, UpdateView):
-    permission_required = ('news.update.post')
+    permission_required = 'news.update.post'
     form_class = PostForm
     model = Post
     template_name = 'article_edit.html'
@@ -114,11 +74,10 @@ class PostUpdateView(PermissionRequiredMixin, UpdateView):
 
 # дженерик для удаления поста
 class PostDeleteView(PermissionRequiredMixin, DeleteView):
-    permission_required = ('news.delete.post',)
+    permission_required = 'news.delete.post'
     model = Post
     template_name = 'article_delete.html'
     success_url = '/news/'
-
 
 
 class PostSearch(ListView):  # поиск поста
@@ -155,7 +114,6 @@ class CategoryListView(PostList):
         return context
 
 
-
 @login_required
 def subscribe(request, pk):
     user = request.user
@@ -164,6 +122,7 @@ def subscribe(request, pk):
     message = 'Вы подписались на категорию: '
     return render(request, 'subscribe.html', {'category': category, 'message': message})
 
+
 @login_required
 def unsubscribe(request, pk):
     user = request.user
@@ -171,6 +130,7 @@ def unsubscribe(request, pk):
     category.subscribers.remove(user)
     message = 'Вы отписались от категории: '
     return render(request, 'subscribe.html', {'category': category, 'message': message})
+
 
 @login_required
 @csrf_protect
@@ -201,5 +161,3 @@ def subscriptions(request):
         'subscriptions.html',
         {'categories': categories_with_subscriptions},
     )
-
-

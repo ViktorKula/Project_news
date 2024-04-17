@@ -57,6 +57,7 @@ Post
             <tr>
                 <td>Заголовок</td>
                 <td>Дата публикации</td>
+                <td>Категория</td>
                 <td>Содержание</td>
                  <td>Действия</td>
             </tr>
@@ -69,6 +70,11 @@ Post
             <tr>
             <td>{{ post_detail.post_title|cenzor}}</td>
             <td>{{ post_detail.post_date|date:'d M Y'}}</td>
+            <td>
+                {% for category in post_detail.post_category.all %}
+                    <a href="{% url 'category_list' category.id %}">{{ category }}</a>
+                {% endfor %}
+            </td>
             <td>{{ post_detail.post_text|cenzor}}</td>
              <td>
             <a href="{% url 'post_edit' post_detail.id %}"><u>Редактировать</u></a> <!--ссылка на редактирование поста-->

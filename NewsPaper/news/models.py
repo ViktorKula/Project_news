@@ -3,20 +3,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.core.validators import MinValueValidator
 
 from django.core.cache import cache
 
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import pgettext_lazy  # импортируем «ленивый» геттекст с подсказкой
-
-# arcticle = 'AR'
-# news = 'NW'
-#
-# TYPE = [
-#     (arcticle, 'Статья'),
-#     (news, 'Новость')
-# ]
 
 
 class Author(models.Model):
@@ -45,30 +35,18 @@ class Category(models.Model):
     politics = 'PO'
     technology = 'TH'
     bullet = 'BL'
-    TEMATIC = [(gossip, _('Gossip')),(politics, _('Politics')),(technology, _('Technology')),(bullet, _('Breaking'))]
+
+    TEMATIC = [
+        (gossip, _('Gossip')),
+        (politics, _('Politics')),
+        (technology, _('Technology')),
+        (bullet, _('Breaking')),
+    ]
     thematic = models.CharField(max_length=2, choices=TEMATIC, unique=True, help_text=_('category name'))
     subscribers = models.ManyToManyField(User, blank=True, related_name='categories')
 
     def __str__(self):
         return self.get_thematic_display()
-
-
-class MyModel(models.Model):
-    name = models.CharField(max_length=100)
-    kind = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-        related_name='kinds',
-        verbose_name=pgettext_lazy('help text for MyModel model', 'This is the help text'),
-    )
-
-
-# post = 'PO'
-# news = 'NE'
-# POST = [
-#     (post, 'ПОСТ'),
-#     (news, 'НОВОСТЬ')
-# ]
 
 
 class Post(models.Model):
