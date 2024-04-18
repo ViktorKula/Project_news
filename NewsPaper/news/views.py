@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.views import View
+from datetime import datetime
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 from .models import *
@@ -9,10 +10,32 @@ from .filters import PostFilter
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Exists, OuterRef
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.csrf import csrf_protect
 
 from django.core.cache import cache
+
+from django.utils import timezone
+import pytz #  импортируем стандартный модуль для работы с часовыми поясами
+
+
+# class Index(View):
+#     def get(self, request):
+#         # .  Translators: This message appears on the home page only
+#         models = Post.objects.all()
+#
+#         context = {
+#             'models': models,
+#             'current_time': timezone.localtime(timezone.now()),
+#             'timezones': pytz.common_timezones  # добавляем в контекст все доступные часовые пояса
+#         }
+#
+#         return HttpResponse(render(request, 'flatpages/default.html', context))
+#
+#     #  по пост-запросу будем добавлять в сессию часовой пояс, который и будет обрабатываться написанным нами ранее middleware
+#     def post(self, request):
+#         request.session['django_timezone'] = request.POST['timezone']
+#         return redirect('post_list')
 
 
 class PostList(ListView):
@@ -26,12 +49,18 @@ class PostList(ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = PostFilter(self.request.GET, queryset=self.get_queryset())  # вписываем фильтр в контекст
         context['categories'] = PostCategory.objects.all()
+        context['current_time'] = timezone.now()
+        context['timezones'] = pytz.common_timezones
         return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
+
+    def post(self, request):
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('post_list')
 
 
 class PostDetail(DetailView):

@@ -146,6 +146,8 @@ MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 
     'allauth.account.middleware.AccountMiddleware',
+
+    'news.middlewares.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'NewsPaper01.urls'

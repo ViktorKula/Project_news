@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-17 16:00+0300\n"
+"POT-Creation-Date: 2024-04-17 21:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,79 +24,41 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Расширенные настройки"
 
-#: .\news\models.py:48
-#, fuzzy
-#| msgid "gossip"
+#: .\news\models.py:42
 msgid "Gossip"
 msgstr "Светские"
 
-#: .\news\models.py:48
-#, fuzzy
-#| msgid "politics"
+#: .\news\models.py:43
 msgid "Politics"
 msgstr "Политика"
 
-#: .\news\models.py:48
-#, fuzzy
-#| msgid "technology"
+#: .\news\models.py:44
 msgid "Technology"
 msgstr "Технология"
 
-#: .\news\models.py:48
+#: .\news\models.py:45
 msgid "Breaking"
 msgstr "Срочные"
 
-#: .\news\models.py:49
+#: .\news\models.py:47
 msgid "category name"
 msgstr "Имя категории"
 
-#: .\news\models.py:62
+#: .\news\models.py:60
 msgctxt "help text for MyModel model"
 msgid "This is the help text"
 msgstr "Это вспомогательный текст"
 
-#: .\news\models.py:77
-#, fuzzy
-#| msgid "arcticle"
+#: .\news\models.py:67
 msgid "Arcticle"
 msgstr "Статья"
 
-#: .\news\models.py:77
+#: .\news\models.py:67
 msgid "News"
-msgstr ""
+msgstr "Новость"
 
-#: .\templates\account\email\email_confirmation_message.txt:5
-#, fuzzy, python-format
-#| msgid ""
-#| "Вы получили это сообщение, потому что пользователь %(user_display)s "
-#| "указал этот email при регистрации на сайте %(site_domain)s.\n"
-#| "\n"
-#| "Для подтверждения регистрации пройдите по ссылке %(activate_url)\n"
-#| "Хорошего дня!"
-msgid ""
-"Вы получили это сообщение, потому что пользователь %(user_display)s указал "
-"этот email при регистрации на сайте %(site_domain)s.\n"
-"\n"
-"Для подтверждения регистрации пройдите по ссылке %(activate_url)s\n"
-"\n"
-"Хорошего дня!\n"
-msgstr "Бла бла бла"
 
 #: .\templates\article.html:21 .\templates\articles.html:23
 #: .\templates\category_list.html:18 .\templates\flatpages\default.html:10
 msgid "Portal News"
 msgstr "Новостной портал"
-
-#, fuzzy
-#~| msgid "bullet"
-#~ msgid "Bullet"
-#~ msgstr "Срочные"
-
-#~ msgid "news"
-#~ msgstr "Новость"
-
-#~ msgid "Hello world"
-#~ msgstr "Привет мир"
-
-#~ msgid "Check out my new cool translation"
-#~ msgstr "Оцени мой классный перевод"

@@ -9,4 +9,4 @@ class CategoryTranslationOptions(TranslationOptions):
 
 @register(Post)
 class PostTranslationOptions(TranslationOptions):
-    fields = ('post_title', 'post_text', 'post_category', 'post_choice' )
+    fields = ('post_title', 'post_text', )
