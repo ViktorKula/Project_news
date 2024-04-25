@@ -1,5 +1,15 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
+from django.views.generic import TemplateView
+from rest_framework import routers
+
+# router = routers.DefaultRouter()
+# router.register(r'author', AuthorViewset)
+# router.register(r'category', CategoryViewset)
+# router.register(r'post', PostViewset)
+# router.register(r'postcategory', PostCategoryViewset)
+# router.register(r'comment', CommentViewest)
+
 
 from django.views.decorators.cache import cache_page
 
@@ -22,4 +32,9 @@ urlpatterns = [
     path('categories/<int:pk>', CategoryListView.as_view(), name='category_list'),
     path('categories/<int:pk>/subscribe', subscribe, name='subscribe'),
     path('categories/<int:pk>/unsubscribe', unsubscribe, name='unsubscribe'),
+    # path('api/', include(router.urls), name='api'),
+    # path('swagger-ui/', TemplateView.as_view(
+    #     template_name='swagger-ui.html',
+    #     extra_context={'schema_url': 'openapi-schema'}
+    # ), name='swagger-ui'),
 ]

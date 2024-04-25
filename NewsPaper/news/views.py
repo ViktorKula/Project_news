@@ -1,6 +1,11 @@
 from django.http import HttpResponse
 from django.views import View
 from datetime import datetime
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS, AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.decorators import api_view, permission_classes
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView
 from .models import *
@@ -18,6 +23,12 @@ from django.core.cache import cache
 from django.utils import timezone
 import pytz #  импортируем стандартный модуль для работы с часовыми поясами
 
+from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework import permissions
+
+from news.serializers import *
+import json
 
 # class Index(View):
 #     def get(self, request):
@@ -190,3 +201,69 @@ def subscriptions(request):
         'subscriptions.html',
         {'categories': categories_with_subscriptions},
     )
+
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def get_permissions(self):
+        if self.request.user.is_authenticated:
+            return [IsAuthenticated()]
+        else:
+            return [AllowAny()]
+
+
+
+
+    # def get_permissions(self):
+    #     if self.action == 'list':
+    #         permission_classes = [IsAuthenticated|ReadOnly]
+    #     else:
+    #         permission_classes = [IsAuthenticatedOrReadOnly]
+    #     return [permission() for permission in permission_classes]
+    #
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     post_type = self.request.query_params.get('post_type', None)
+    #     if post_type:
+    #         queryset = queryset.filter(post_type=post_type)
+    #     return queryset
+
+
+class NewsViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    # def get_permissions(self):
+    #     if self.request.user.is_authenticated:
+    #         return [IsAuthenticated()]
+    #     else:
+    #         return [AllowAny()]
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(post_choice='news')
+    #     return queryset
+
+
+class ArticlesViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    # def get_permissions(self):
+    #     if self.request.user.is_authenticated:
+    #         return [IsAuthenticated()]
+    #     else:
+    #         return [AllowAny()]
+    #
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(ppost_choice='arcticle')
+    #     return queryset
+
+
+
+
+

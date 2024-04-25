@@ -16,6 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from rest_framework.routers import DefaultRouter
+from news.views import *
+
+router = DefaultRouter()
+router.register(r'posts', PostViewSet, basename='posts')
+router.register(r'news', NewsViewSet, basename='news')
+router.register(r'articles', ArticlesViewSet, basename='articles')
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),  # подключаем встроенные эндопинты для работы с локализацией
@@ -24,6 +32,8 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('articles/', include('news.urls')),
     path('', include('news.urls')),
+    path('api/', include(router.urls)),
+
 
     # Делаем так, чтобы все адреса из нашего приложения (simpleapp/urls.py)
     # подключались к главному приложению с префиксом products/.

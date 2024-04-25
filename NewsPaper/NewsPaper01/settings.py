@@ -63,7 +63,15 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.yandex',
 
     "django_apscheduler",
+
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+   'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+   'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+   'PAGE_SIZE': 10
+}
 
 SITE_ID = 1
 SITE_URL = 'http://127.0.0.1:8000'
